@@ -6,8 +6,8 @@ import java.util.List;
 
 public interface BuildingService {
     List<Building> getAllBuildings();
-    List<Building> getBuildings(Long ownerId);
-    void createBuilding(Building building, Long ownerId);
+    Building getBuilding(Long buildingId);
+    void createBuilding(Building building);
     void deleteBuilding(Long buildingId);
     void updateBuilding(Long buildingId, Building building);
 

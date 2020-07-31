@@ -4,6 +4,7 @@ import com.example.andriuskli.entity.Building;
 import com.example.andriuskli.entity.Owner;
 import com.example.andriuskli.repository.BuildingRepository;
 import com.example.andriuskli.repository.OwnerRepository;
+import com.example.andriuskli.repository.OwnershipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +26,12 @@ public class BuildingServiceImp implements BuildingService {
     }
 
     @Override
-    public List<Building> getBuildings(Long ownerId) {
-        return ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new).getBuildings();
+    public Building getBuilding(Long buildingId) {
+        return buildingRepository.findById(buildingId).orElseThrow(NoSuchElementException::new);
     }
 
     @Override
-    public void createBuilding(Building building, Long ownerId) {
-        Owner owner = ownerRepository.findById(ownerId).orElseThrow(NoSuchElementException::new);
-        building.setOwner(owner);
+    public void createBuilding(Building building) {
         buildingRepository.save(building);
     }
 
@@ -50,7 +49,6 @@ public class BuildingServiceImp implements BuildingService {
         updatedBuilding.setMarketValue(building.getMarketValue());
         updatedBuilding.setPropertyType(building.getPropertyType());
         updatedBuilding.setBuildingSize(building.getBuildingSize());
-        updatedBuilding.setOwner(building.getOwner());
         buildingRepository.save(updatedBuilding);
     }
 }

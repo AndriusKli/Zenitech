@@ -10,4 +10,5 @@ public interface OwnerService {
     void deleteOwner(Long ownerId);
     List<Owner> getOwners();
     double calculateTax(Long ownerId);
+    void updateOwner(Long ownerId, Owner owner);
 }

@@ -2,7 +2,9 @@ package com.example.andriuskli;
 
 import com.example.andriuskli.entity.Building;
 import com.example.andriuskli.entity.Owner;
+import com.example.andriuskli.entity.Ownership;
 import com.example.andriuskli.enums.PropertyType;
+import com.example.andriuskli.repository.OwnershipRepository;
 import com.example.andriuskli.service.BuildingService;
 import com.example.andriuskli.service.OwnerService;
 import org.springframework.boot.CommandLineRunner;
@@ -17,6 +19,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @EnableSwagger2
 @SpringBootApplication
@@ -41,17 +44,21 @@ public class AndriuskliApplication {
                 .version("0.0.1 SNAPSHOT")
                 .build();
     }
+
+    @Bean
+	public CommandLineRunner sampleData(OwnerService ownerService, BuildingService buildingService, OwnershipRepository ownershipRepository) {
+		return (args) -> {
+			buildingService.createBuilding(new Building(4L, "Vilnius", "Ateties", "5", 250.25, 55000.50, PropertyType.APARTMENT));
+            buildingService.createBuilding(new Building(5L, "Vilnius", "Ateties", "7", 200.00, 45000.00, PropertyType.INDUSTRIAL));
+            buildingService.createBuilding(new Building(6L, "Kaunas", "Rugiu", "3", 250.25, 55000.50, PropertyType.APARTMENT));
+            buildingService.createBuilding(new Building(7L, "Vilnius", "Kazlausko", "74", 200.00, 45000.00, PropertyType.INDUSTRIAL));
+            buildingService.createBuilding(new Building(8L, "Vilnius", "Ateties", "5-12", 250.25, 75500.00, PropertyType.APARTMENT));
+            buildingService.createBuilding(new Building(9L, "Vilnius", "Noragiskiu", "7", 200.00, 100000.00, PropertyType.HOUSE));
+            ownerService.createOwner(new Owner(1L, "John", "Smith", new ArrayList<>()));
+            ownerService.createOwner(new Owner(2L, "Petras", "Petraitis", new ArrayList<>()));
+            ownershipRepository.save(new Ownership(1L, 4L, ownerService.getOwner(7L), 1.0));
+            ownershipRepository.save(new Ownership(2L, 5L, ownerService.getOwner(7L), 0.5));
+            ownershipRepository.save(new Ownership(2L, 5L, ownerService.getOwner(8L), 0.5));
+        };
+	}
 }
-//    @Bean
-//	public CommandLineRunner sampleData(OwnerService ownerService, BuildingService buildingService) {
-//		return (args) -> {
-//			ownerService.createOwner(new Owner(1L, "John", "Smith", new ArrayList<>()));
-//            ownerService.createOwner(new Owner(2L, "Petras", "Petraitis", new ArrayList<>()));
-//			buildingService.createBuilding(new Building(5L, "Vilnius", "Ateties", "5", new Owner(), 250.25, 55000.50, PropertyType.APARTMENT), 1L);
-//            buildingService.createBuilding(new Building(3L, "Vilnius", "Ateties", "7", new Owner(), 200.00, 45000.00, PropertyType.INDUSTRIAL), 1L);
-//            buildingService.createBuilding(new Building(6L, "Kaunas", "Rugiu", "3", new Owner(), 250.25, 55000.50, PropertyType.APARTMENT), 2L);
-//            buildingService.createBuilding(new Building(7L, "Vilnius", "Kazlausko", "74", new Owner(), 200.00, 45000.00, PropertyType.INDUSTRIAL), 2L);
-//            buildingService.createBuilding(new Building(8L, "Vilnius", "Ateties", "5-12", new Owner(), 250.25, 75500.00, PropertyType.APARTMENT), 2L);
-//            buildingService.createBuilding(new Building(9L, "Vilnius", "Noragiskiu", "7", new Owner(), 200.00, 100000.00, PropertyType.HOUSE), 2L);
-//        };
-//	}

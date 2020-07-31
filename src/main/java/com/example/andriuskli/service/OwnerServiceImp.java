@@ -1,6 +1,8 @@
 package com.example.andriuskli.service;
 
+import com.example.andriuskli.entity.Building;
 import com.example.andriuskli.entity.Owner;
+import com.example.andriuskli.repository.BuildingRepository;
 import com.example.andriuskli.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ public class OwnerServiceImp implements OwnerService {
 
     @Autowired
     private OwnerRepository ownerRepository;
+
+    @Autowired
+    private BuildingService buildingService;
 
     @Override
     public List<Owner> getOwners() {
@@ -35,10 +40,21 @@ public class OwnerServiceImp implements OwnerService {
     }
 
     @Override
+    public void updateOwner(Long ownerId, Owner owner) {
+        Owner updatableOwner = getOwner(ownerId);
+        updatableOwner.setName(owner.getName());
+        updatableOwner.setSurname(owner.getSurname());
+        updatableOwner.setOwnerships(owner.getOwnerships());
+    }
+
+    @Override
     public double calculateTax(Long ownerId) {
         Owner owner = getOwner(ownerId);
-        return owner.getBuildings().stream()
-                .mapToDouble(building -> building.getMarketValue() * building.getPropertyType().getTaxRate())
+        return owner.getOwnerships().stream()
+                .mapToDouble(ownership -> {
+                    Building building = buildingService.getBuilding(ownership.getBuildingId());
+                    return building.getMarketValue() * building.getPropertyType().getTaxRate() * ownership.getOwnershipPercentage();
+                })
                 .reduce(0, Double::sum);
     }
 }

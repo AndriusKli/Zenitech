@@ -27,13 +27,13 @@ public class Owner {
 
     @JsonIgnore
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
-    private List<Building> buildings;
+    private List<Ownership> ownerships;
 
-    public List<Building> getBuildings() {
-        return buildings;
+    public List<Ownership> getOwnerships() {
+        return ownerships;
     }
 
-    public void setBuildings(List<Building> buildings) {
-        this.buildings = buildings;
+    public void setOwnerships(List<Ownership> ownerships) {
+        this.ownerships = ownerships;
     }
 }

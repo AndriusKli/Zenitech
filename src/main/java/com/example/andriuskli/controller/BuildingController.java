@@ -32,20 +32,20 @@ public class BuildingController {
     }
 
 
-    @GetMapping(value = "/{ownerId}")
-    @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Retrieves all buildings of a specific owner", notes = "Retrieves all buildings belonging to a specified owner")
-    public List<Building> getBuildings(@ApiParam(value = "The id of the owner") @PathVariable Long ownerId) {
-        return buildingService.getBuildings(ownerId);
-    }
+//    @GetMapping(value = "/{ownerId}")
+//    @ResponseStatus(HttpStatus.OK)
+//    @ApiOperation(value = "Retrieves all buildings of a specific owner", notes = "Retrieves all buildings belonging to a specified owner")
+//    public List<Building> getBuildings(@ApiParam(value = "The id of the owner") @PathVariable Long ownerId) {
+//        return buildingService.getBuildings(ownerId);
+//    }
 
-    @PostMapping(value = "/{ownerId}")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    @ApiOperation(value = "Create a building", notes = "Creates a building and assigns it to the specified owner. Note that you must assign the building to an owner.")
-    public void createBuilding(@ApiParam("The id of the owner that the building belongs to") @PathVariable Long ownerId,
-                               @ApiParam("Building data") @RequestBody Building building) {
-        buildingService.createBuilding(building, ownerId);
-    }
+//    @PostMapping(value = "/{ownerId}")
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//    @ApiOperation(value = "Create a building", notes = "Creates a building and assigns it to the specified owner. Note that you must assign the building to an owner.")
+//    public void createBuilding(@ApiParam("The id of the owner that the building belongs to") @PathVariable Long ownerId,
+//                               @ApiParam("Building data") @RequestBody Building building) {
+//        buildingService.createBuilding(building, ownerId);
+//    }
 
 
     @DeleteMapping(value = "/{buildingId}")
@@ -57,7 +57,7 @@ public class BuildingController {
 
     @PutMapping(value = "/{buildingId}")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Updates a building", notes = "Updates a building's data, including the ability to switch the owner.")
+    @ApiOperation(value = "Updates a building", notes = "Updates a building's data.")
     public void updateBuilding(@ApiParam("The id of the to-be-updated building") @PathVariable Long buildingId,
                                @ApiParam("Update data") @RequestBody Building building) {
         buildingService.updateBuilding(buildingId, building);
