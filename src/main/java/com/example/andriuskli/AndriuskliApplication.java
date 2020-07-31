@@ -41,7 +41,7 @@ public class AndriuskliApplication {
                 .version("0.0.1 SNAPSHOT")
                 .build();
     }
-
+}
 //    @Bean
 //	public CommandLineRunner sampleData(OwnerService ownerService, BuildingService buildingService) {
 //		return (args) -> {
@@ -55,4 +55,3 @@ public class AndriuskliApplication {
 //            buildingService.createBuilding(new Building(9L, "Vilnius", "Noragiskiu", "7", new Owner(), 200.00, 100000.00, PropertyType.HOUSE), 2L);
 //        };
 //	}
-}
