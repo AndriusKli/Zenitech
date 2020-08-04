@@ -1,0 +1,297 @@
+{ "databaseChangeLog": [
+  {
+    "changeSet": {
+      "id": "1596546404855-1",
+      "author": "andrius.kliunka (generated)",
+      "changes": [
+        {
+          "createSequence": {
+            "sequenceName": "HIBERNATE_SEQUENCE"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1596546404855-2",
+      "author": "andrius.kliunka (generated)",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false,
+                    "primaryKey": true,
+                    "primaryKeyName": "CONSTRAINT_D"
+                  },
+                  "name": "BUILDING_ID",
+                  "type": "BIGINT"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "BUILDING_SIZE",
+                  "type": "DOUBLE(17)"
+                }
+              },
+              {
+                "column": {
+                  "name": "CITY",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "MARKET_VALUE",
+                  "type": "DOUBLE(17)"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "PROPERTY_TYPE",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "STREET",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "STREET_NO",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+            ,
+            "tableName": "BUILDING"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1596546404855-3",
+      "author": "andrius.kliunka (generated)",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false,
+                    "primaryKey": true,
+                    "primaryKeyName": "CONSTRAINT_4"
+                  },
+                  "name": "OWNER_ID",
+                  "type": "BIGINT"
+                }
+              },
+              {
+                "column": {
+                  "name": "NAME",
+                  "type": "VARCHAR(255)"
+                }
+              },
+              {
+                "column": {
+                  "name": "SURNAME",
+                  "type": "VARCHAR(255)"
+                }
+              }]
+            ,
+            "tableName": "OWNER"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1596546404855-4",
+      "author": "andrius.kliunka (generated)",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "OWNERSHIP_PERCENTAGE",
+                  "type": "DOUBLE(17)"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false,
+                    "primaryKey": true,
+                    "primaryKeyName": "CONSTRAINT_A"
+                  },
+                  "name": "BUILDING_BUILDING_ID",
+                  "type": "BIGINT"
+                }
+              },
+              {
+                "column": {
+                  "name": "OWNER_ID",
+                  "type": "BIGINT"
+                }
+              }]
+            ,
+            "tableName": "OWNERSHIP"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1596546404855-5",
+      "author": "andrius.kliunka (generated)",
+      "changes": [
+        {
+          "createTable": {
+            "columns": [
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false,
+                    "primaryKey": true,
+                    "primaryKeyName": "CONSTRAINT_F"
+                  },
+                  "name": "TRANSACTION_ID",
+                  "type": "BIGINT"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "NEW_OWNER_ID",
+                  "type": "BIGINT"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "PERCENTAGE_TRANSFERRED",
+                  "type": "DOUBLE(17)"
+                }
+              },
+              {
+                "column": {
+                  "constraints": {
+                    "nullable": false
+                  },
+                  "name": "PREVIOUS_OWNER_ID",
+                  "type": "BIGINT"
+                }
+              },
+              {
+                "column": {
+                  "name": "TRANSACTION_TIME",
+                  "type": "TIMESTAMP"
+                }
+              }]
+            ,
+            "tableName": "TRANSACTION"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1596546404855-6",
+      "author": "andrius.kliunka (generated)",
+      "changes": [
+        {
+          "createIndex": {
+            "columns": [
+              {
+                "column": {
+                  "name": "OWNER_ID"
+                }
+              }]
+            ,
+            "indexName": "FKQFBB8Q0HYLL5TDEOVFKF8ATE6_INDEX_A",
+            "tableName": "OWNERSHIP"
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1596546404855-7",
+      "author": "andrius.kliunka (generated)",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "BUILDING_BUILDING_ID",
+            "baseTableName": "OWNERSHIP",
+            "constraintName": "FK3CJQ7C5F3NCPA3YFHHVX3MIHP",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "RESTRICT",
+            "onUpdate": "RESTRICT",
+            "referencedColumnNames": "BUILDING_ID",
+            "referencedTableName": "BUILDING",
+            "validate": true
+          }
+        }]
+      
+    }
+  },
+  
+  {
+    "changeSet": {
+      "id": "1596546404855-8",
+      "author": "andrius.kliunka (generated)",
+      "changes": [
+        {
+          "addForeignKeyConstraint": {
+            "baseColumnNames": "OWNER_ID",
+            "baseTableName": "OWNERSHIP",
+            "constraintName": "FKQFBB8Q0HYLL5TDEOVFKF8ATE6",
+            "deferrable": false,
+            "initiallyDeferred": false,
+            "onDelete": "RESTRICT",
+            "onUpdate": "RESTRICT",
+            "referencedColumnNames": "OWNER_ID",
+            "referencedTableName": "OWNER",
+            "validate": true
+          }
+        }]
+      
+    }
+  }
+  
+]}

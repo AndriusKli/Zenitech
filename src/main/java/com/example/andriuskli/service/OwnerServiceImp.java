@@ -52,7 +52,7 @@ public class OwnerServiceImp implements OwnerService {
         Owner owner = getOwner(ownerId);
         return owner.getOwnerships().stream()
                 .mapToDouble(ownership -> {
-                    Building building = buildingService.getBuilding(ownership.getBuildingId());
+                    Building building = ownership.getBuilding();
                     return building.getMarketValue() * building.getPropertyType().getTaxRate() * ownership.getOwnershipPercentage();
                 })
                 .reduce(0, Double::sum);

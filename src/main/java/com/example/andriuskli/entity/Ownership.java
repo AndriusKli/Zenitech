@@ -20,16 +20,10 @@ public class Ownership {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ownershipId;
 
-    private Long buildingId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private Building building;
 
-//    @JsonIgnore
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    @JoinTable(
-//            name = "ownership",
-//            joinColumns = @JoinColumn(name = "ownerId"),
-//            inverseJoinColumns = @JoinColumn(name = "ownershipId")
-//    )
-//    private List<Owner> owners;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ownerId")
     @JsonIgnore
@@ -39,11 +33,5 @@ public class Ownership {
     @DecimalMax("1.0")
     private double ownershipPercentage;
 
-//    public List<Owner> getOwners() {
-//        return owners;
-//    }
-//
-//    public void setOwners(List<Owner> owners) {
-//        this.owners = owners;
-//    }
+
 }

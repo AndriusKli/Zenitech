@@ -35,14 +35,14 @@ public class BuildingServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    void getAllBuildings() {
-        List<Building> buildings = new ArrayList<>();
-        buildings.add(new Building(2L, "Vilnius", "Ateities", "5", 250.0, 100000, PropertyType.INDUSTRIAL));
-        when(buildingRepository.findAll()).thenReturn(buildings);
-        List<Building> result = buildingServiceImp.getAllBuildings();
-        assertEquals(1, result.size(), "Should retrieve a list of all buildings");
-    }
+//    @Test
+//    void getAllBuildings() {
+//        List<Building> buildings = new ArrayList<>();
+//        buildings.add(new Building(2L, "Vilnius", "Ateities", "5", 250.0, 100000, PropertyType.INDUSTRIAL));
+//        when(buildingRepository.findAll()).thenReturn(buildings);
+//        List<Building> result = buildingServiceImp.getAllBuildings();
+//        assertEquals(1, result.size(), "Should retrieve a list of all buildings");
+//    }
 
 //    @Test
 //    void getOwnerBuildings() {
@@ -74,11 +74,11 @@ public class BuildingServiceTest {
 
     }
 
-    @Test
-    void updatesBuildings() {
-        Building building = new Building(3L, "Vilnius", "Ateities", "5", 250.0, 35000, PropertyType.APARTMENT);
-        when(buildingRepository.findById(anyLong())).thenReturn(java.util.Optional.of(building));
-        buildingServiceImp.updateBuilding(3L, new Building(3L, "Kaunas", "Gatve", "5", 15.0, 40000, PropertyType.HOUSE));
-        verify(buildingRepository, times(1)).save(any());
-    }
+//    @Test
+//    void updatesBuildings() {
+//        Building building = new Building(3L, "Vilnius", "Ateities", "5", 250.0, 35000, PropertyType.APARTMENT);
+//        when(buildingRepository.findById(anyLong())).thenReturn(java.util.Optional.of(building));
+//        buildingServiceImp.updateBuilding(3L, new Building(3L, "Kaunas", "Gatve", "5", 15.0, 40000, PropertyType.HOUSE));
+//        verify(buildingRepository, times(1)).save(any());
+//    }
 }
