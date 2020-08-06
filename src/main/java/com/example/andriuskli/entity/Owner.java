@@ -26,7 +26,7 @@ public class Owner {
     private String surname;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "owner")
     private List<Ownership> ownerships;
 
     public List<Ownership> getOwnerships() {

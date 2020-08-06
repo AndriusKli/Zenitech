@@ -44,7 +44,7 @@ public class BuildingServiceImp implements BuildingService {
     public void updateBuilding(Long buildingId, Building building) {
         Building updatedBuilding = buildingRepository.findById(buildingId).orElseThrow(NoSuchElementException::new);
         updatedBuilding.setStreet(building.getStreet());
-        updatedBuilding.setStreetNo(building.getStreetNo());
+//        updatedBuilding.setStreetNo(building.getStreetNo());
         updatedBuilding.setCity(building.getCity());
         updatedBuilding.setMarketValue(building.getMarketValue());
         updatedBuilding.setPropertyType(building.getPropertyType());

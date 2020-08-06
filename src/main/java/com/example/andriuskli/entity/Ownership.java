@@ -16,12 +16,20 @@ import java.util.List;
 @AllArgsConstructor
 public class Ownership {
 
+    public Ownership(Building building, Owner owner, @DecimalMin("0.01") @DecimalMax("1.0") double ownershipPercentage) {
+        this.building = building;
+        this.owner = owner;
+        this.ownershipPercentage = ownershipPercentage;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long ownershipId;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
+    @JoinColumn(name = "buildingId")
+    @JsonIgnore
     private Building building;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -32,6 +40,5 @@ public class Ownership {
     @DecimalMin("0.01")
     @DecimalMax("1.0")
     private double ownershipPercentage;
-
 
 }

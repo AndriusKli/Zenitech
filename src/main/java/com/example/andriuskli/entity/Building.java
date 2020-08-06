@@ -26,9 +26,9 @@ public class Building {
 
     @NotBlank
     private String street;
-
-    @NotBlank
-    private String streetNo;
+//
+//    @NotBlank
+//    private String streetNo;
 
     @NotNull
     private double buildingSize;

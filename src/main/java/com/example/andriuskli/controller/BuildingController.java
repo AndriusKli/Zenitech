@@ -2,6 +2,7 @@ package com.example.andriuskli.controller;
 
 import com.example.andriuskli.entity.Building;
 import com.example.andriuskli.service.BuildingService;
+import com.example.andriuskli.service.OwnershipService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Api("api/building")
 @RestController
@@ -17,12 +19,13 @@ import java.util.List;
 public class BuildingController {
 
     private BuildingService buildingService;
+    private OwnershipService ownershipService;
 
     @Autowired
-    public BuildingController(BuildingService buildingService) {
+    public BuildingController(BuildingService buildingService, OwnershipService ownershipService) {
         this.buildingService = buildingService;
+        this.ownershipService = ownershipService;
     }
-
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -39,13 +42,20 @@ public class BuildingController {
 //        return buildingService.getBuildings(ownerId);
 //    }
 
-//    @PostMapping(value = "/{ownerId}")
-//    @ResponseStatus(HttpStatus.ACCEPTED)
-//    @ApiOperation(value = "Create a building", notes = "Creates a building and assigns it to the specified owner. Note that you must assign the building to an owner.")
-//    public void createBuilding(@ApiParam("The id of the owner that the building belongs to") @PathVariable Long ownerId,
-//                               @ApiParam("Building data") @RequestBody Building building) {
-//        buildingService.createBuilding(building, ownerId);
-//    }
+    @PostMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @ApiOperation(value = "Create a building", notes = "Creates a building.")
+    public void createBuilding(@ApiParam("Building data") @RequestBody Building building) {
+        buildingService.createBuilding(building);
+    }
+
+    // TODO move this out to the ownership controller?
+    @PostMapping(value = "{buildingId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Create an ownership", notes = "Creates and assigns an ownership (or ownerships) for the specified building.")
+    public void createOwnership(@RequestBody Map<String, Double> ownersAndOwnershipPercentages, @PathVariable Long buildingId) {
+        ownershipService.createOwnership(buildingId, ownersAndOwnershipPercentages);
+    }
 
 
     @DeleteMapping(value = "/{buildingId}")

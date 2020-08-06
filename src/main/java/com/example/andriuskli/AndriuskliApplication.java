@@ -7,6 +7,7 @@ import com.example.andriuskli.enums.PropertyType;
 import com.example.andriuskli.repository.OwnershipRepository;
 import com.example.andriuskli.service.BuildingService;
 import com.example.andriuskli.service.OwnerService;
+import com.example.andriuskli.service.OwnershipService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,6 +21,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 @EnableSwagger2
 @SpringBootApplication
@@ -46,11 +49,13 @@ public class AndriuskliApplication {
     }
 
     @Bean
-	public CommandLineRunner sampleData(OwnerService ownerService, BuildingService buildingService, OwnershipRepository ownershipRepository) {
+	public CommandLineRunner sampleData(OwnerService ownerService, BuildingService buildingService, OwnershipService ownershipService) {
 		return (args) -> {
 //            ownerService.createOwner(new Owner(1L, "John", "Smith", new ArrayList<>()));
 //            ownerService.createOwner(new Owner(2L, "Petras", "Petraitis", new ArrayList<>()));
-//            buildingService.createBuilding(new Building(4L, "Vilnius", "Ateties", "5", 250.25, 55000.50, PropertyType.APARTMENT, 500));
+            buildingService.createBuilding(new Building(1L, "Vilnius", "Ateties", 250.25, 55000.50, PropertyType.APARTMENT));
+            ownerService.createOwner(new Owner(2L, "Petras", "Petraitis", new ArrayList<>()));
+            ownershipService.createOwnership(1L, new HashMap<String, Double>(Map.of("2", 1.0)));
 //            buildingService.createBuilding(new Building(5L, "Vilnius", "Ateties", "7", 200.00, 45000.00, PropertyType.INDUSTRIAL));
 //            buildingService.createBuilding(new Building(6L, "Kaunas", "Rugiu", "3", 250.25, 55000.50, PropertyType.APARTMENT));
 //            buildingService.createBuilding(new Building(7L, "Vilnius", "Kazlausko", "74", 200.00, 45000.00, PropertyType.INDUSTRIAL));

@@ -2,22 +2,25 @@ package com.example.andriuskli.service;
 
 import com.example.andriuskli.entity.Building;
 import com.example.andriuskli.entity.Owner;
-import com.example.andriuskli.repository.BuildingRepository;
 import com.example.andriuskli.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class OwnerServiceImp implements OwnerService {
 
-    @Autowired
     private OwnerRepository ownerRepository;
+    private BuildingService buildingService;
 
     @Autowired
-    private BuildingService buildingService;
+    public OwnerServiceImp(OwnerRepository ownerRepository, BuildingService buildingService) {
+        this.ownerRepository = ownerRepository;
+        this.buildingService = buildingService;
+    }
 
     @Override
     public List<Owner> getOwners() {
@@ -40,6 +43,7 @@ public class OwnerServiceImp implements OwnerService {
     }
 
     @Override
+    @Transactional
     public void updateOwner(Long ownerId, Owner owner) {
         Owner updatableOwner = getOwner(ownerId);
         updatableOwner.setName(owner.getName());
