@@ -1,10 +1,8 @@
 package com.example.andriuskli.service;
 
 import com.example.andriuskli.entity.Building;
-import com.example.andriuskli.entity.Owner;
 import com.example.andriuskli.repository.BuildingRepository;
 import com.example.andriuskli.repository.OwnerRepository;
-import com.example.andriuskli.repository.OwnershipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,11 +12,12 @@ import java.util.NoSuchElementException;
 @Service
 public class BuildingServiceImp implements BuildingService {
 
-    @Autowired
     private BuildingRepository buildingRepository;
 
     @Autowired
-    private OwnerRepository ownerRepository;
+    public BuildingServiceImp(BuildingRepository buildingRepository) {
+        this.buildingRepository = buildingRepository;
+    }
 
     @Override
     public List<Building> getAllBuildings() {
@@ -44,7 +43,6 @@ public class BuildingServiceImp implements BuildingService {
     public void updateBuilding(Long buildingId, Building building) {
         Building updatedBuilding = buildingRepository.findById(buildingId).orElseThrow(NoSuchElementException::new);
         updatedBuilding.setStreet(building.getStreet());
-//        updatedBuilding.setStreetNo(building.getStreetNo());
         updatedBuilding.setCity(building.getCity());
         updatedBuilding.setMarketValue(building.getMarketValue());
         updatedBuilding.setPropertyType(building.getPropertyType());

@@ -50,12 +50,12 @@ public class BuildingController {
     }
 
     // TODO move this out to the ownership controller?
-    @PostMapping(value = "{buildingId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    @ApiOperation(value = "Create an ownership", notes = "Creates and assigns an ownership (or ownerships) for the specified building.")
-    public void createOwnership(@RequestBody Map<String, Double> ownersAndOwnershipPercentages, @PathVariable Long buildingId) {
-        ownershipService.createOwnership(buildingId, ownersAndOwnershipPercentages);
-    }
+//    @PostMapping(value = "{buildingId}")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    @ApiOperation(value = "Create an ownership", notes = "Creates and assigns an ownership (or ownerships) for the specified building.")
+//    public void createOwnership(@RequestBody Map<String, Double> ownersAndOwnershipPercentages, @PathVariable Long buildingId) {
+//        ownershipService.createOwnership(buildingId, ownersAndOwnershipPercentages);
+//    }
 
 
     @DeleteMapping(value = "/{buildingId}")

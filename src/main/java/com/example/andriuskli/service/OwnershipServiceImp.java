@@ -3,6 +3,7 @@ package com.example.andriuskli.service;
 import com.example.andriuskli.entity.Building;
 import com.example.andriuskli.entity.Owner;
 import com.example.andriuskli.entity.Ownership;
+import com.example.andriuskli.entity.Transaction;
 import com.example.andriuskli.repository.OwnershipRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,7 @@ public class OwnershipServiceImp implements OwnershipService {
         Double totalOwnershipPercentage = calculateOwnershipPercentage(ownersAndOwnershipPercentages);
 
         if (totalOwnershipPercentage == 1.0) {
-            createOwnerships(building, ownersAndOwnershipPercentages);
+            createOwnerships(building, ownersAndOwnershipPercentages, null);
         } else {
             throw new IllegalArgumentException("Incorrect ownership percentages supplied.");
         }
@@ -65,21 +66,31 @@ public class OwnershipServiceImp implements OwnershipService {
         Double totalNewOwnershipPercentage = calculateOwnershipPercentage(newOwnersAndOwnershipPercentages);
 
         if (updatableOwnershipPercentage - totalNewOwnershipPercentage > 0.0 && updatableOwnershipPercentage - totalNewOwnershipPercentage < 1.00) {
-            createOwnerships(updatableOwnership.getBuilding(), newOwnersAndOwnershipPercentages);
+            createOwnerships(updatableOwnership.getBuilding(), newOwnersAndOwnershipPercentages, updatableOwnership.getOwner().getOwnerId());
         } else {
             throw new IllegalArgumentException("Incorrect ownership percentages supplied.");
         }
-        updatableOwnership.setOwnershipPercentage(updatableOwnershipPercentage - totalNewOwnershipPercentage);
-        ownershipRepository.save(updatableOwnership);
-        // save updated ownership?
+
+        if (updatableOwnershipPercentage - totalNewOwnershipPercentage == 0) {
+            deleteOwnership(ownershipId);
+        } else {
+            updatableOwnership.setOwnershipPercentage(updatableOwnershipPercentage - totalNewOwnershipPercentage);
+            ownershipRepository.save(updatableOwnership);
+        }
     }
 
-    private void createOwnerships(Building building, Map<String, Double> map) {
+    @Override
+    public void deleteOwnership(Long ownershipId) {
+        ownershipRepository.deleteById(ownershipId);
+    }
+
+    private void createOwnerships(Building building, Map<String, Double> map, Long previousOwner) {
         for (String ownerString : map.keySet()) {
             try {
                 Long ownerId = Long.parseLong(ownerString);
                 Owner owner = ownerService.getOwner(ownerId);
                 ownershipRepository.save(new Ownership(building, owner, map.get(ownerString)));
+                transactionService.createTransaction(new Transaction(previousOwner, ownerId));
             } catch (NumberFormatException e) {
                 throw new IllegalArgumentException("Erroneous ownerId provided: " + ownerString);
             }

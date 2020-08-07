@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import java.util.List;
 
 @Data
 @Entity
@@ -27,7 +26,6 @@ public class Ownership {
     private Long ownershipId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "buildingId")
     @JsonIgnore
     private Building building;

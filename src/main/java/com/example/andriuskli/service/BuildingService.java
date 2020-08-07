@@ -1,6 +1,7 @@
 package com.example.andriuskli.service;
 
 import com.example.andriuskli.entity.Building;
+import com.example.andriuskli.entity.Owner;
 
 import java.util.List;
 
@@ -10,5 +11,4 @@ public interface BuildingService {
     void createBuilding(Building building);
     void deleteBuilding(Long buildingId);
     void updateBuilding(Long buildingId, Building building);
-
 }

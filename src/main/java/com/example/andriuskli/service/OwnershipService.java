@@ -12,4 +12,5 @@ public interface OwnershipService {
     List<Ownership> getOwnershipsByOwner(Long ownerId);
     void createOwnership(Long buildingId, Map<String, Double> ownersAndOwnershipPercentages);
     void updateOwnership(Long ownershipId, Map<String, Double> newOwnersAndOwnershipPercentages);
+    void deleteOwnership(Long ownershipId);
 }
