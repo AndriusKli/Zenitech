@@ -2,7 +2,6 @@ package com.example.andriuskli.service;
 
 import com.example.andriuskli.entity.Building;
 import com.example.andriuskli.repository.BuildingRepository;
-import com.example.andriuskli.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

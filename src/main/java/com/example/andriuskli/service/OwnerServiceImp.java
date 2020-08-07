@@ -14,12 +14,10 @@ import java.util.NoSuchElementException;
 public class OwnerServiceImp implements OwnerService {
 
     private OwnerRepository ownerRepository;
-    private BuildingService buildingService;
 
     @Autowired
-    public OwnerServiceImp(OwnerRepository ownerRepository, BuildingService buildingService) {
+    public OwnerServiceImp(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
-        this.buildingService = buildingService;
     }
 
     @Override

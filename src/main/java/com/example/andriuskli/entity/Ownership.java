@@ -38,5 +38,4 @@ public class Ownership {
     @DecimalMin("0.01")
     @DecimalMax("1.0")
     private double ownershipPercentage;
-
 }

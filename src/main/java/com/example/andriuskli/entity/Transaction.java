@@ -10,8 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
@@ -35,11 +33,6 @@ public class Transaction {
 
     @NotNull
     private Long newOwner;
-
-//    @NotNull
-//    @DecimalMin("0.01")
-//    @DecimalMax("1.0")
-//    private Double percentageOwned;
 
     @CreatedDate
     private LocalDateTime validFrom;
